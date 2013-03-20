@@ -5,7 +5,7 @@ A set of recipes for using PHP and Travis
 
 ## 1. Installing Extensions: 
 
-1. APC
+### 1.1. APC
 
 ```yml
 before_script: 
@@ -16,4 +16,11 @@ before_script:
     - rm APC-3.1.10.tgz
     - echo "extension=apc.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
     - phpenv rehash
+```
+### 1.2. Memcache
+
+```yml
+before_script:
+    - echo 'y' | pecl install memcache > ~/memcache.log || ( echo "=== MEMCACHE BUILD FAILED ==="; cat ~/memcache.log )
+    - echo "extension=memcache.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 ```
